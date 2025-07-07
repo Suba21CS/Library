@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Student Registrations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f6fa;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 80%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    #backBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #backBtn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Registered Students</h2>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be injected here -->
+    </tbody>
+  </table>
+
+  <button id="backBtn" onclick="goBack()">Back to Dashboard</button>
+
+  <script>
+    function loadStudents() {
+      fetch("http://localhost:59993/student/all") // Change port if needed
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector("#studentTable tbody");
+          tbody.innerHTML = "";
+  
+          if (data.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='3'>No students found.</td></tr>";
+            return;
+          }
+  
+          data.forEach(student => {
+            const row = `
+              <tr>
+                <td>${student.id}</td>
+                <td>${student.name}</td>
+                <td>${student.email}</td>
+              </tr>
+            `;
+            tbody.innerHTML += row;
+          });
+        })
+        .catch(err => {
+          console.error("Failed to fetch students:", err);
+          alert("Error loading student data.");
+        });
+    }
+  
+    function goBack() {
+      window.location.href = "admin.html"; // Modify if different
+    }
+  
+    window.onload = loadStudents;
+  </script>
+  
+</body>
+</html>

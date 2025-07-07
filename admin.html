@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f4f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .admin-box {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 400px;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .logout {
+      background-color: #dc3545;
+    }
+
+    .logout:hover {
+      background-color: #bd2130;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-box">
+    <h2>Admin Dashboard</h2>
+
+    <button onclick="window.location.href='admin_view_students.html'">View Student Registrations</button>
+    <button onclick="window.location.href='admin_book.html'">View Available Books</button>
+    <button onclick="window.location.href='admin_view_takebook.html'">View Borrowed Books</button>
+    <button onclick="window.location.href='admin_view_returnbook.html'">View Returned Books</button>
+    <button onclick="window.location.href='view_review.html'">View Book Reviews</button>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    function logout() {
+      // Clear admin session if any
+      alert("Logged out successfully.");
+      window.location.href = "admin_login.html";
+    }
+  </script>
+
+</body>
+</html>

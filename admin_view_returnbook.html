@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Returned Books - Admin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef1f4;
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    button {
+      padding: 6px 12px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Returned Books</h2>
+  <table id="returnTable">
+    <tr>
+      <th>Borrow ID</th>
+      <th>Student Email</th>
+      <th>Book Title</th>
+      <th>Author</th>
+      <th>Borrow Date</th>
+      <th>Return Date</th>
+      <th>Action</th> <!-- Delete column -->
+    </tr>
+  </table>
+
+  <script>
+    const table = document.getElementById('returnTable');
+
+    function loadReturnedBooks() {
+      fetch('http://localhost:59993/borrow/returned')
+        .then(res => res.json())
+        .then(data => {
+          data.forEach(record => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${record.id}</td>
+              <td>${record.studentEmail}</td>
+              <td>${record.title}</td>
+              <td>${record.author}</td>
+              <td>${record.borrowDate}</td>
+              <td>${record.returnDate}</td>
+              <td><button onclick="deleteRecord('${record.studentEmail}', '${record.title}', '${record.author}', this)">Delete</button></td>
+            `;
+            table.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching returned books:", error);
+        });
+    }
+
+    function deleteRecord(email, title, author, btn) {
+      const url = `http://localhost:59993/borrow/returned/delete?studentEmail=${email}&title=${title}&author=${author}`;
+      
+      if (confirm("Are you sure you want to delete this returned record?")) {
+        fetch(url, { method: 'DELETE' })
+          .then(res => res.text())
+          .then(message => {
+            alert(message);
+            // Remove the row from the table
+            const row = btn.closest('tr');
+            row.remove();
+          })
+          .catch(err => console.error("Delete failed:", err));
+      }
+    }
+
+    loadReturnedBooks();
+  </script>
+
+</body>
+</html>

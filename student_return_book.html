@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Return Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .return-box {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="return-box">
+    <h2>Return Book</h2>
+    <form onsubmit="returnBook(event)">
+      <input type="email" id="email" placeholder="Enter Your Email" required>
+      <input type="text" id="title" placeholder="Book Title" required>
+      <input type="text" id="author" placeholder="Author Name" required>
+      <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+      <button type="submit">Return Book</button>
+    </form>
+  </div>
+
+  <script>
+    async function returnBook(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const title = document.getElementById('title').value.trim();
+      const author = document.getElementById('author').value.trim();
+      const quantity = parseInt(document.getElementById('quantity').value.trim());
+
+      if (!email || !title || !author || isNaN(quantity) || quantity <= 0) {
+        alert("Please fill all fields correctly.");
+        return;
+      }
+
+      const payload = {
+        studentEmail: email,
+        title: title,
+        author: author,
+        quantity: quantity
+      };
+
+      try {
+        const response = await fetch('http://localhost:59993/borrow/return', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const message = await response.text();
+
+        if (response.ok) {
+          alert(message);
+          document.querySelector("form").reset();
+        } else {
+          alert("Return Failed: " + message);
+        }
+
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    }
+  </script>
+
+</body>
+</html>

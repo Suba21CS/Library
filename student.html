@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dashboard {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 400px;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .available { background: #007bff; }
+    .take { background: #28a745; }
+    .return { background: #ffc107; color: #000; }
+    .late { background: #dc3545; }
+    .review { background: #6f42c1; }
+    .logout { background: #343a40; }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <h2>Welcome, Student</h2>
+
+    <button class="available" onclick="location.href='available_book.html'">📚 View Available Books</button>
+    <button class="take" onclick="location.href='student_take_book.html'">🟩 Take Book</button>
+    <button class="return" onclick="location.href='student_return_book.html'">🔁 Return Book</button>
+    <button onclick="window.location.href='view_review.html'">View Book Reviews</button>
+    <button class="review" onclick="location.href='book_review.html'">✍️ Review Book</button>
+    <button class="logout" onclick="logout()">🚪 Logout</button>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("student");
+      alert("Logged out successfully!");
+      window.location.href = "student_login.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .register-container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    .register-container h2 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .register-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .register-container button:hover {
+      background-color: #0056b3;
+    }
+
+    .register-container .login-btn {
+      background-color: #6c757d;
+      margin-top: 10px;
+    }
+
+    .register-container .login-btn:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h2>Student Registration</h2>
+    <form onsubmit="registerStudent(event)">
+      <input type="text" id="studentname" placeholder="Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password (min 6 characters)" required pattern=".{6,}">
+      <input type="text" id="phone" placeholder="Phone" required pattern="[0-9]{10}">
+      <input type="text" id="department" placeholder="Department" required>
+      <button type="submit">Register</button>
+    </form>
+    <button class="login-btn" onclick="location.href='student_login.html'">Login Instead</button>
+  </div>
+
+  <script>
+    function registerStudent(event) {
+      event.preventDefault();
+
+      const studentData = {
+        name: document.getElementById('studentname').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value,
+        phone: document.getElementById('phone').value.trim(),
+        department: document.getElementById('department').value.trim()
+      };
+
+      fetch('http://localhost:59993/student/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(studentData)
+      })
+      .then(response => response.text())
+      .then(message => {
+        alert(message);
+        if (message.includes("successfully")) {
+          document.querySelector('form').reset();
+        }
+      })
+      .catch(error => {
+        alert('Registration failed. Please try again.');
+        console.error('Error:', error);
+      });
+    }
+  </script>
+
+</body>
+</html>

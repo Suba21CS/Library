@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Review</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .review-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="review-box">
+    <h2>Review a Book</h2>
+    <form onsubmit="submitReview(event)">
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="bookname" placeholder="Book Name" required />
+      <select id="rating" required>
+        <option value="">Select Rating</option>
+        <option value="1">★☆☆☆☆ (1)</option>
+        <option value="2">★★☆☆☆ (2)</option>
+        <option value="3">★★★☆☆ (3)</option>
+        <option value="4">★★★★☆ (4)</option>
+        <option value="5">★★★★★ (5)</option>
+      </select>
+      <textarea id="comment" placeholder="Write your review..." required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+
+  <script>
+    function submitReview(event) {
+      event.preventDefault();
+      fetch('http://localhost:59993/review/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          
+          studentEmail: document.getElementById('email').value,
+          bookId: document.getElementById('bookname').value,
+          comment: document.getElementById('comment').value,
+          rating: document.getElementById('rating').value
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Review submitted successfully!");
+        document.querySelector("form").reset();
+      })
+      .catch(err => alert("Error: " + err.message));
+    }
+  </script>
+
+</body>
+</html>
