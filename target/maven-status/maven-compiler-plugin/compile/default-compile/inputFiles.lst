@@ -1,0 +1,17 @@
+C:\Eyproject\src\main\java\com\example\eyproject\controller\BookController.java
+C:\Eyproject\src\main\java\com\example\eyproject\controller\BorrowBookController.java
+C:\Eyproject\src\main\java\com\example\eyproject\controller\ReviewController.java
+C:\Eyproject\src\main\java\com\example\eyproject\controller\StudentController.java
+C:\Eyproject\src\main\java\com\example\eyproject\EyprojectApplication.java
+C:\Eyproject\src\main\java\com\example\eyproject\model\Book.java
+C:\Eyproject\src\main\java\com\example\eyproject\model\Borrowbook.java
+C:\Eyproject\src\main\java\com\example\eyproject\model\Review.java
+C:\Eyproject\src\main\java\com\example\eyproject\model\Student.java
+C:\Eyproject\src\main\java\com\example\eyproject\repository\BookRepository.java
+C:\Eyproject\src\main\java\com\example\eyproject\repository\BorrowRepository.java
+C:\Eyproject\src\main\java\com\example\eyproject\repository\ReviewRepository.java
+C:\Eyproject\src\main\java\com\example\eyproject\repository\StudentRepo.java
+C:\Eyproject\src\main\java\com\example\eyproject\service\BookService.java
+C:\Eyproject\src\main\java\com\example\eyproject\service\BorrowService.java
+C:\Eyproject\src\main\java\com\example\eyproject\service\ReviewService.java
+C:\Eyproject\src\main\java\com\example\eyproject\service\StudentService.java
